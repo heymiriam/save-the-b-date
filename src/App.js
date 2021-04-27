@@ -10,11 +10,12 @@ import { addCollectionAndDocuments } from './firebase/firebase.util';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
+  console.log('test');
   return (
     <div className="app">
-      <Header currentUser={currentUser} />
+      <Header component={Header} currentUser={currentUser} />
       <Switch>
-      <Route exact path="/" exact component={Home} />
+      <Route exact path="/" component={Home} />
       <Route path="/signin" component={SignIn} render={() => currentUser ? (<Redirect to="/" />) : (<SignIn/>)} />
 
       </Switch>

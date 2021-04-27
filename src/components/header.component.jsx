@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -19,6 +21,27 @@ const useStyles = makeStyles((theme) => ({
     title: {
       flexGrow: 1,
     },
+    menubg:{
+      backgroundColor:'white',
+      position: 'sticky',
+    },
+    signinbtn:{
+      backgroundColor:'#2196f3',
+      color:'white',
+      undelrine:'none',
+      "&:hover":{
+        color: "white",
+        backgroundColor:"#2172f3",
+      },
+      "&:active":{
+        color: "white",
+        textDecoration:'none',
+      },
+      "&:focus":{
+        color: "white",
+        textDecoration:'none',
+      },
+    },
   }));
 
   export default function Header() {
@@ -27,21 +50,26 @@ const useStyles = makeStyles((theme) => ({
     return (
       <div className={classes.root}>
         <AppBar position="static">
-          <Toolbar>
-            <Link className="logo" to="/">
-                Logo
+        
+          <Toolbar className={classes.menubg}>
+          <Grid container direction="row" justify="space-between" alignItems="center">
+            <Link className="logo" to="/" style={{ textDecoration: 'none' }} underline="none">
+                <h1>Logo</h1>
             </Link>
-            
-            <Button color="inherit">
-                <Link className="sign-in" to="/signin">
+          
+            <Button variant="contained"  className={classes. signinbtn}>
+                <Link className="signIn" to="/signin" >
                     Sign In
                 </Link>                
             </Button>
+            </Grid>
           </Toolbar>
+        
         </AppBar>
+
       </div>
     );
-  }
+  };
 
 
 

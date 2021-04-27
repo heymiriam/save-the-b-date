@@ -1,6 +1,7 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -13,8 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ThemeProvider } from '@material-ui/styles';
-import { FormControl } from '@material-ui/core';
+import { FormControl, Button } from '@material-ui/core';
 import {auth, signInWithGoogle} from '../firebase/firebase.util'
+import { useTheme } from '@material-ui/core/styles';
 
 /*function signIn()=> {
   return (
@@ -29,25 +31,6 @@ import {auth, signInWithGoogle} from '../firebase/firebase.util'
   );
 }*/
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', 
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
 
 //export default function 
 /*class SignIn extends Component{
@@ -71,11 +54,14 @@ const useStyles = makeStyles((theme) => ({
     
 
     }*/
+
+    
     const SignIn = () => {
 
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
         const [error, setError] = useState(null);
+        const history = useHistory();
         const handleSubmit=async(event)=> {
         event.preventDefault()
        /* this.setState({
@@ -88,8 +74,35 @@ const useStyles = makeStyles((theme) => ({
             console.log(error)
         }
     }
-   
-    const classes = useStyles();
+    //const defaultTheme = createMuiTheme();
+    const style = makeStyles(theme=>({
+      palette:{
+        primary:{
+          main: '#2196f3'
+        }
+      
+      },
+      paper: {
+        textTransform: 'none',
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      },
+      avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+      },
+      form: {
+        width: '100%', 
+        marginTop: theme.spacing(1),
+      },
+      submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+  }))
+  const classes = style()
+  const theme = useTheme();
 
     const signInWithEmailAndPasswordHandler = (event,email, password) => {
         event.preventDefault();
@@ -112,14 +125,14 @@ const useStyles = makeStyles((theme) => ({
     return (
         <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
+        <div className={theme.paper}>
+            <Avatar className={theme.avatar}>
             
             </Avatar>
             <Typography component="h1" variant="h5">
             Sign in
             </Typography>
-            <FormControl className={classes.form} noValidate onSubmit={this.handleSubmit}>
+            <FormControl className={theme.form} >
             <TextField
                 variant="outlined"
                 margin="normal"
@@ -160,7 +173,7 @@ const useStyles = makeStyles((theme) => ({
             >
                 Sign In
             </Button>
-            <ThemeProvider theme={useStyles} >
+            <ThemeProvider theme={theme} >
              <Button variant="contained" size="medium"  style={{width:'100%'}} color="secondary" className="bg-red-500 hover:bg-red-600 w-full py-2 text-white"
             onClick={() => {
               try {
@@ -182,9 +195,10 @@ const useStyles = makeStyles((theme) => ({
                 </Link>
                 </Grid>
                 <Grid item>
-                <Link to="/signup" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                </Link>
+                Don't have an account?{" "}
+                <Link to="/signup" className="text-blue-500 hover:text-blue-600" onClick={()=> history.push("/signup")}>
+                  Sign up here
+                </Link>{" "}
                 </Grid>
             </Grid>
             </FormControl>
@@ -196,3 +210,20 @@ const useStyles = makeStyles((theme) => ({
 };
 
 export default SignIn;
+/*paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', 
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },*/
