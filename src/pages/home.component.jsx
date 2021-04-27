@@ -1,8 +1,10 @@
 import React, {Component, useState} from 'react';
-import Header from '../components/header.component';
+import Search from '../components/search.component';
 const Home=() =>{
     return(
+        
         <div>
+            <Search/>
             <h1 style={{color: "red"}}>Test</h1>
         </div>
     )
