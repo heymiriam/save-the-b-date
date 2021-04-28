@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import BDATE_DATA from './bdate.data';
-import BDateCard from '../component/bdate-card.component';
+import BDateCard from './bdate-card.component';
 
 const BDateInfo = () =>{
     console.log(BDATE_DATA);

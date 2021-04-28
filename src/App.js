@@ -17,9 +17,7 @@ function App() {
     <div className="app">
       <Header component={Header} currentUser={currentUser} />
       <Switch>
-      <Route exact path="/" component={Home}>
-        <Search />
-      </Route>
+      <Route exact path="/" component={Home}/> 
       <Route path="/signin" component={SignIn} render={() => currentUser ? (<Redirect to="/" />) : (<SignIn/>)} />
       <Route path="/signup" component={SignUp} />
       </Switch>
