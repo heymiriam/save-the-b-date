@@ -4,42 +4,42 @@ const BDATE_DATA=[
     name: "Gregorio",
     birthday: "September 19th",
     tag:"family",
-    img:"",
+    img:"https://source.unsplash.com/random",
     },
     {
     id:2, 
     name: "Mari Paz",
     birthday: "February 23rd",
     tag:"family",
-    img:"",
+    img:"https://source.unsplash.com/random",
     },
     {
     id:3,
     name: "Cristina",
     birthday: "December 21st",
     tag:"friends",
-    img:"",
+    img:"https://source.unsplash.com/random",
     },
     {
         id:4,
         name: "Igor",
         birthday:"July 18th",
         tag:"work",
-        img:"",
+        img:"https://source.unsplash.com/random",
     },
     {
         id:5,
         name:"Paul",
         birthday:"August 4th",
         tag:"roomies",
-        img:"",
+        img:"https://source.unsplash.com/random",
     },
     {
         id:6,
         name:"Alvaro",
         birthday:"February 3rd",
         tag:"college",
-        img:"",
+        img:"https://source.unsplash.com/random",
     }
 
 ];

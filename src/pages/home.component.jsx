@@ -1,11 +1,15 @@
 import React, {Component, useState} from 'react';
 import Search from '../components/search.component';
+import Datepick from '../components/datepicker.component';
+import BirthdaySoon from "../components/birthdaysoon.component";
 const Home=() =>{
     return(
         
-        <div>
+        <div >
             <Search/>
-            <h1 style={{color: "red"}}>Test</h1>
+            <br></br>
+            <Datepick/>
+            <BirthdaySoon />
         </div>
     )
 }
