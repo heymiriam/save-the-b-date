@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import firebase from '../firebase/firebase.util';
 import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     signinbtn:{
       backgroundColor:'#2196f3',
       color:'white',
-      undelrine:'none',
+      underline:'none',
       "&:hover":{
         color: "white",
         backgroundColor:"#2172f3",
@@ -44,9 +45,11 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-  export default function Header() {
+  export default function Header({currentUser}) {
     const classes = useStyles();
-  
+    const handleLogout=() => {
+      firebase.auth().signOut();
+    }
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -56,12 +59,22 @@ const useStyles = makeStyles((theme) => ({
             <Link className="logo" to="/" style={{ textDecoration: 'none' }} underline="none">
                 <h1>Logo</h1>
             </Link>
-          
-            <Button variant="contained"  className={classes. signinbtn}>
-                <Link className="signIn" to="/signin" >
-                    Sign In
-                </Link>                
+          {
+            currentUser ? (
+              <Button variant="contained"  className={classes.signinbtn} onClick={()=>auth.signOut()}>
+             {''}
+                Sign Out
+               {''}             
+              </Button>
+            ) :(
+            <Button variant="contained"  className={classes.signinbtn}>
+            <Link className="signIn" to="/signin" >
+                Sign In
+            </Link>                
             </Button>
+            )
+          }
+            
             </Grid>
           </Toolbar>
         

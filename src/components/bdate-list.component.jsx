@@ -1,5 +1,4 @@
 import React, { Component, useState} from 'react';
-import firebase from '../firebase/firebase.util';
 import BDATE_DATA from "../pages/bdate/bdate.data";
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
@@ -20,7 +19,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import EditIcon from '@material-ui/icons/Edit';
 
 
-function BDateCard(){
+function BDateList(){
     const useStyles = makeStyles({
         bdatecard:{
             width:"100%",
@@ -44,6 +43,14 @@ function BDateCard(){
             justifyContent: 'space-between',
 
           },
+          tag:{
+            display:'flex',
+            flexDirection:'column',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+            width:'98%',
+            paddingTop:'10px',
+        },
           
         media: {
           height: 140,
@@ -63,18 +70,7 @@ function BDateCard(){
             display: 'flex',
             flexDirection: 'column',
             marginTop:'30px',
-            justifyContent: 'center',
-            alignItems: 'center',
-
             
-        },
-        tag:{
-            display:'flex',
-            flexDirection:'column',
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            width:'98%',
-            paddingTop:'10px',
         },
       });
     const classes = useStyles();
@@ -85,66 +81,63 @@ function BDateCard(){
         setBdatCard(newBdateCard)
     }
     const editCard=(id)=>{
-       const db=firebase.firestore(); 
-    
+        
     }
    return(
    <div className={classes.bdatecard}> 
-          <b><Typography component="h1" variant="h3" align="center" color="primary">You have {bdateCard.length} birthdays coming soon</Typography></b>
-
        <Grid container className={classes.container}>
 
-   { bdateCard.map((people)=>{
-            const{id, name, birthday, tag, img}= people
-            return(
-            <>
+{ bdateCard.map((people)=>{
+         const{id, name, birthday, tag, img}= people
+         return(
+         <>
 <Grid item md={4} className={classes.cardgrid}>
 <Card className={classes.card}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={img}
-          title={name}
-         > 
-         <div className={classes.tag}>
-           <Chip color="primary" label={tag} >{tag}</Chip>
-           </div>
-        </CardMedia>
-        <CardContent>
+   <CardActionArea>
+     <CardMedia
+       className={classes.media}
+       image={img}
+       title={name}
+      > 
+      <div className={classes.tag}>
+        <Chip color="primary" label={tag} >{tag}</Chip>
+        </div>
+     </CardMedia>
+     <CardContent>
 
-         <div>
-                          
-         </div>
-          <b><Typography gutterBottom variant="h5" align="center" component="h3">
-            {name}
-          </Typography></b>
-          <Typography variant="body1" color="textPrimary" align="center" component="p">
-            {birthday}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions className={classes.buttons}>
-        
-        <Button variant="contained" color="primary" style={{width:"50%"}} onClick={(event) => editCard(id)}>
-            <Link to="/add-bday" ><EditIcon style={{color:"white"}}></EditIcon></Link>
-        </Button>
-        <Button variant="contained" color="secondary" style={{width:"50%"}} onClick={() => removeCard(id)}>
-            <Link ><DeleteIcon style={{color:"white"}}></DeleteIcon></Link>
-        </Button>
-      </CardActions>
-    </Card>
-    </Grid>
-  
-    
-                <br></br>
-                
-     </>
+      <div>
+                       
+      </div>
+       <b><Typography gutterBottom variant="h5" align="center" component="h3">
+         {name}
+       </Typography></b>
+       <Typography variant="body1" color="textPrimary" align="center" component="p">
+         {birthday}
+       </Typography>
+     </CardContent>
+   </CardActionArea>
+   <CardActions className={classes.buttons}>
      
-    )
-    })}
-    </Grid>
+     <Button variant="contained" color="primary" style={{width:"50%"}} onClick={() => editCard(id)}>
+         <Link ><EditIcon style={{color:"white"}}></EditIcon></Link>
+     </Button>
+     <Button variant="contained" color="secondary" style={{width:"50%"}} onClick={() => removeCard(id)}>
+         <Link ><DeleteIcon style={{color:"white"}}></DeleteIcon></Link>
+     </Button>
+   </CardActions>
+ </Card>
+ </Grid>
+
+ 
+             <br></br>
+             
+  </>
+  
+ )
+ })}
+ </Grid>
     </div>
    )
     }
  
-export default BDateCard;
+export default BDateList;
