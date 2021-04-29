@@ -18,8 +18,8 @@ import {
             <Datepciker 
             selected={selectedDate} 
             onchange={date=>setSelectedDate(date)} 
-            dateFormat="yyyy-MM-dd"
-            maxDate={new Date()}
+            dateformat="yyyy-MM-dd"
+            maxdate={new Date()}
             isClearable
             showYearDropdown
             scrollableYearDropdown/>
@@ -75,8 +75,8 @@ function Datepick(){
             type="date"
             selected={selectedDate}
             onchange={date=>setSelectedDate(date)} 
-            dateFormat="yyyy-MM-dd"
-            maxDate={new Date()} 
+            dateformat="yyyy-MM-dd"
+            maxdate={new Date()} 
             defaultValue="2017-05-24"
             className={classes.textField}
             InputLabelProps={{
