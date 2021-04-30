@@ -19,13 +19,43 @@ import { ThemeProvider } from '@material-ui/styles';
 import { FormControl, Button } from '@material-ui/core';
 import {auth, signInWithGoogle} from '../firebase/firebase.util';
 import { useTheme } from '@material-ui/core/styles';
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { firebaseConnect, isLoaded, isEmpty,firestoreConnect } from 'react-redux-firebase'
+
+/*function signIn()=> {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}*/
 
 
+//export default function 
+/*class SignIn extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            email:"",
+            password:"",
+        }
+    };*/
 
+
+/*class SignIn extends Component{
+    constructor(props){
+        super(props)
+
+        this.state={
+            email:"",
+            password:"",
+        };
+    
+
+    }*/
 
     const useStyles = makeStyles((theme) => ({
       palette:{
@@ -54,20 +84,128 @@ import { firebaseConnect, isLoaded, isEmpty,firestoreConnect } from 'react-redux
       },
     }));
 
+    /*class SignIn extends Component {
+      constructor(props) {
+        super(props)
+    
+        this.state = {
+          email: '',
+          password: '',
+        }
+      }
+
+        //const [email, setEmail] = useState('');
+       /* const [password, setPassword] = useState('');
+        const [error, setError] = useState(null);
+        const [emailError, setEmailError]=useState('');
+        const [passwordError, setPasswordError]=useState('');
+        const history = useHistory();*/
+        
+        
+    //const defaultTheme = createMuiTheme();
+    
+ 
+   /* handleSubmit = async (event) => {
+    event.preventDefault()*/
+  
+      // this.setState({
+      //     email: '',
+      //     password: ''
+      // })
+  
+      /*try {
+        await auth.signInWithEmailAndPassword(
+          this.state.email,
+          this.state.password
+        )
+      } catch (error) {
+        console.log(error)
+      }
+    }*/
+  
+  /*clearInput=() => {
+    setEmail('');
+    setPassword('');
+  }
+  
+  clearError=()=>{
+    setEmailError('');
+    setPasswordError('');
+  }*/
+  
+  /*handleLogin=(event, email, password) => {
+      event.preventDefault();
+      clearError();
+      firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password).catch(err => {
+        switch(err.code){
+          case "auth/noemail":
+          case "auth/usernotfound":
+            setEmailError(err.message);
+            break;
+          case "auth/wrongpassword":
+            setPasswordError(err.message);
+            break;
+        }
+      })
+    }*/
+    
   
 
+     //onClick = {(event) => {signInWithEmailAndPasswordHandler(event, email, password)}}*
+   
+     /* handleLogout=() => {
+        firebase.auth().signOut();
+      };*/
+
+   
+     /* authListener=() => {
+        firebase.auth().onAuthStateChanged(email=>{
+          if(email){
+            clearInput();
+            setEmail(email);
+          }else{
+            setEmail('');
+          }
+        })
+      };
+      useEffect(()=>{
+        authListener();
+      },[]);*/
+      /*const onChangeHandler = (event) => {
+          const {name, value} = event.currentTarget;
+        
+          if(name === 'userEmail') {
+              setEmail(value);
+          }
+          else if(name === 'userPassword'){
+            setPassword(value);
+          }
+      };
+    //  onChange = {(event) => onChangeHandler(event)}
+      
+
+    handleChange = (event) => {
+      const { value, name, email } = event.target
+  
+      this.setState({
+        [name]: value,
+        [email]:value,
+      })
+    }
 
 
-    const SignIn = () => {
-        const propTypes = {
-          uid: PropTypes.string,
-          firestore: PropTypes.shape({
-          add: PropTypes.func.isRequired
-          }).isRequired
-        }
-//  state = { category: '' }
 
 
+
+
+    
+     render(){*/
+
+
+
+      const SignIn = () => {
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
         const [error, setError] = useState(null);
@@ -90,18 +228,8 @@ import { firebaseConnect, isLoaded, isEmpty,firestoreConnect } from 'react-redux
               }
           };
       //const{classes}=this.props;
-      const addCategory=()=> {
-        this.props.firestore.add(
-          { collection: 'bdate' },
-          {
-            uid: this.props.uid,
-            name: this.state.bdate
-          }
-        )
-        this.setState({ bdate: '' })
-      }
       const classes = useStyles();
-      if (!this.props.uid) return null
+    
     return (
       <div>
         <Container component="main" maxWidth="xs">
@@ -197,17 +325,23 @@ import { firebaseConnect, isLoaded, isEmpty,firestoreConnect } from 'react-redux
   };
     
 
-  const mapStateToProps = state => {
-    return {
-      uid: state.firebase.auth.uid,
-    }
-  }
-  
-  const mapDispatchToProps = {}
-  
-  
-  export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
-    firestoreConnect(),
-  )(SignIn)
 
+export default SignIn;
+//export default withStyles(styles,{withTheme:true})(SignIn);
+/*paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', 
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },*/

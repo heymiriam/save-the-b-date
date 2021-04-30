@@ -153,11 +153,11 @@ import { withStyles } from "@material-ui/core/styles";
                     fullWidth 
             />  
                 <div>
-                    <InputLabel style={{marginTop:'250px' }}>Image</InputLabel>
+                    <InputLabel style={{marginTop:'200px' }}>Image</InputLabel>
                     
                     <input
                         style={{marginTop:'40px', width:'100%' }}
-                        type="file"
+                        type="url"
                         margin="normal"
                         fullwidth
                         id="img"

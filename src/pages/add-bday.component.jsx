@@ -232,7 +232,7 @@ import { withStyles } from "@material-ui/core/styles";
                     
                     <input
                         style={{marginTop:'40px', width:'100%' }}
-                        type="file"
+                        type="url"
                         margin="normal"
                         fullwidth
                         id="img"
