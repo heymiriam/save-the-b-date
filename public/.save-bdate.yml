@@ -1,4 +1,4 @@
-name: FSave the- B-Date Deployhey
+name: FSave the- B-Date Deploy
 on:
   push:
     branches:
