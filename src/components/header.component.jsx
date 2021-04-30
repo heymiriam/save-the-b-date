@@ -12,6 +12,10 @@ import logo from "../assets/logo-01.svg";
 //import IconButton from '@material-ui/core/IconButton';
 import {auth} from "../firebase/firebase.util";
 //import MenuIcon from '@material-ui/icons/Menu';
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
   export default function Header({currentUser}) {
+   
     const classes = useStyles();
     const handleLogout=() => {
       firebase.auth().signOut();

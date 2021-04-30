@@ -21,7 +21,10 @@ import Chip from '@material-ui/core/Chip';
 import EditIcon from '@material-ui/icons/Edit';
 import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
-
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase'
 
 //const Home=() =>{
     const styles = theme =>({
@@ -93,8 +96,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
       key:'',
     };
   }
-
+  static propTypes = {
+    uid: PropTypes.string,
+    bdate: PropTypes.arrayOf(PropTypes.string)
+  }
   onCollectionUpdate = (querySnapshot) => {
+      
     const bdate = [];
     querySnapshot.forEach((doc) => {
       const { name, birthday, tag, img } = doc.data();
@@ -111,7 +118,11 @@ import DeleteIcon from '@material-ui/icons/Delete';
       bdate
    });
   }
-
+  renderBdate(bdate) {
+    return <div key={bdate}>
+      {bdate}
+    </div>
+  }
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
 
@@ -218,5 +229,29 @@ import DeleteIcon from '@material-ui/icons/Delete';
   );
 }
 }
+
+
+const mapStateToProps = state => {
+    return {
+      uid: state.firebase.auth.uid,
+      bdate: state.firestore.ordered.bdate ? state.firestore.ordered.bdate.map(c => c.name) : [],
+    }
+  }
+  
+  const mapDispatchToProps = {}
 //export default Home;
-export default withStyles(styles,{withTheme:true})(Home);
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    firestoreConnect((props) => {
+      if (!props.uid) return []
+      return [
+        {
+          collection: 'bdate',
+          where: [
+            ['uid', '==', props.uid]
+          ]
+        }
+      ]
+    }
+    )
+  )(withStyles(styles,{withTheme:true})(Home))

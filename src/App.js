@@ -12,10 +12,16 @@ import EditBDay from './components/edit-bday.component';
 import firebase from './firebase/firebase.util';
 import Footer from './components/footer.component';
 import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.util';
-
+import PropTypes from 'prop-types'
+import { Provider } from "react-redux"
+import store from "./redux/store"
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 
 
 function App(props) {
+  
   const [currentUser, setCurrentUser] = useState(null)
   useEffect(()=>{
     let unsubscribeFromAuth=null
