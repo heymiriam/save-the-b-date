@@ -5,6 +5,7 @@ import { Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import logo from "../assets/logo-white.svg";
 
 const Search=() =>{
 
@@ -23,8 +24,9 @@ const Search=() =>{
     return(
         <div style={{backgroundImage:`url(${background})`, height:"500px" }}  className={classes.bgpos}>
             <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" alignItems="center">
-                <Typography style={{color:"white", marginTop:"100px"}} align="center" component="h1" variant="h2">
-                    Remember a b-date
+                <img src={logo} style={{width:'500px',marginTop:'50px'}}></img>
+                <Typography style={{color:"white", marginTop:"40px"}} align="center" component="h5" variant="h5">
+                    Remember that birthday you always forget
                 </Typography>
                 <SearchBar className={classes.searchbar} style={{marginTop:"60px"}}/>
             </Box>

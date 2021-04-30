@@ -1,5 +1,6 @@
 import React, { Component, useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import {Button, InputLabel} from "@material-ui/core";
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
@@ -15,80 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import firebase from '../firebase/firebase.util';
 import { withStyles } from "@material-ui/core/styles";
 
-//import NavBar from './Nav-Footer/NavBar'
-//import Bottom from './Nav-Footer/Bottom'
-//import useStyles from '../styles/styles'
-//import { storage } from "../firebase/firabase.util"
-//import { EventContext } from "../providers/EventProvider";
 
-
-/*const AddBDay = (props)=>{
-
-    const values={
-        Name:'',
-
-    }
-    const [name, setName] = useState("")
-    const [birthday, setBirthday] = useState("")
-    const [date, setDate] = useState(new Date('2014-08-18T21:11:54'));
-
-    const [tag, setTag] = useState("")
-    const [img, setImg] = useState(null);
-    const [validName, setValidName]= useState("");
-    const [validDate, setValidDate]= useState("");
-    const [validTag, setValidTag]= useState("");
-
-    const handleDateChange = (date) => {
-        setDate(date);
-      };
-    //const eventContext = useContext(EventContext)
-
-    //const classes = useStyles();
-
-    const handleChange = (e) => {
-        if (e.target.files[0]) {
-            setImg(e.target.files[0])
-        }
-    };
-
-    console.log("image: ", img)
-
-    const submitHandler = async (e) => {
-        e.preventDefault()*/
-
-        /*const uploadTask = storage.ref(`images/${img.name}`).put(img);
-        await uploadTask.on(
-        "state_changed",
-        snapshot => {
-            const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-            console.log(progress)
-        },
-        error => {
-            console.log(error);
-        },
-        () => {
-            storage
-            .ref("images")
-            .child(img.name)
-            .getDownloadURL()
-            .then(url => {
-                if(url) {
-
-                    eventContext.addEventHandler({
-                        title: title,
-                        birthday: birthday,
-                        date: date,
-                        tag: tag,
-                        img: url
-                    })
-                    
-                }
-            });
-        }
-        );*/
-   // }
    const styles = theme =>({
         container: {
           display: 'flex',
@@ -101,35 +29,55 @@ import { withStyles } from "@material-ui/core/styles";
         },
     });
 
-    class AddBDay extends Component{
-    constructor() {
-    super();
-    this.ref = firebase.firestore().collection('bdate');
+    class EditBDay extends Component{
+    constructor(props) {
+    super(props);
     this.state = {
+      key:'',  
       name: '',
       birthday: '',
       tag: '',
       img:'',
     };
   }
-  onChange = (e) => {
+
+  componentDidMount() {
+    const ref = firebase.firestore().collection('bdate').doc(this.props.match.params.id);
+    ref.get().then((doc) => {
+      if (doc.exists) {
+        const bdate = doc.data();
+        this.setState({
+          key: doc.id,
+          name: bdate.name,
+          birthday: bdate.birthday,
+          tag: bdate.tag,
+          img:bdate.img,
+        });
+      } else {
+        console.log("Try again");
+      }
+    });
+  }
+
+  onChange = (event) => {
     const state = this.state
-    state[e.target.name] = e.target.value;
-    this.setState(state);
+    state[event.target.name] = event.target.value;
+    this.setState({bdate:state});
   }
 
   onSubmit = (event) => {
     event.preventDefault();
 
     const { name, birthday, tag, img } = this.state;
-
-    this.ref.add({
+    const updateRef = firebase.firestore().collection('bdate').doc(this.state.key);
+    updateRef.set({
       name,
       birthday,
       tag,
       img,
     }).then((docRef) => {
       this.setState({
+        key: '',
         name: '',
         birthday: '',
         tag: '',
@@ -138,11 +86,11 @@ import { withStyles } from "@material-ui/core/styles";
       this.props.history.push("/")
     })
     .catch((error) => {
-      console.error("Error adding birthday: ", error);
+      console.error("try again: ", error);
     });
   }
     render(){
-    const { name, birthday, tag, img } = this.state;
+    //const { name, birthday, tag, img } = this.state;
     const {classes} = this.props;
     return(
     
@@ -152,7 +100,7 @@ import { withStyles } from "@material-ui/core/styles";
             <div style={{height:"400px",backgroundImage:`url('https://images.unsplash.com/photo-1529244927325-b3ef2247b9fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80)`}}>
             
             </div>
-            <h1 style={{textAlign:'center', }}>Add a Birthday</h1>
+            <h1 style={{textAlign:'center', }}>Edit a Birthday</h1>
             <Grid container style={{ width: '90%'}}>
         <Grid item xs={12} sm={12} md={5} />
             <FormControl className='formWidth'>
@@ -165,18 +113,14 @@ import { withStyles } from "@material-ui/core/styles";
                     id="name"
                     label="Name"
                     name="name"
-                    value = {name}
                     className="my-1 p-1 w-full"
                     onChange={this.onChange}
                     required  
                     fullWidth 
             />
             
-                <br />
             
-                <br/>
-
-                    <TextField
+            <TextField
                         type='date'
                         style={{width:'100%'}}
                         data-date-split-input="true"
@@ -185,7 +129,7 @@ import { withStyles } from "@material-ui/core/styles";
                         id="birthday"
                         label="Birthday"
                         name="birthday"
-                        value = {birthday}
+                        
                         className="my-1 p-1 w-full"
                         onChange={this.onChange}
                         InputLabelProps={{
@@ -202,31 +146,12 @@ import { withStyles } from "@material-ui/core/styles";
                     id="tag"
                     label="Tag"
                     name="tag"
-                    value = {tag}
+                  
                     className="my-1 p-1 w-full"
                     onChange={this.onChange}
                     required  
                     fullWidth 
             />  
-               
-                
-                
-
-                    
-          
-               
-
-                {/* <InputLabel>City1
-                    <Select
-                    value={city}
-                    onChange={handleCitySelection}>        
-                        <MenuItem value="Vancouver">Vancouver</MenuItem>
-                        <MenuItem value="Toronto">Toronto</MenuItem>
-                    </Select>
-                </InputLabel> */}
-                 
-             
-                <br />
                 <div>
                     <InputLabel style={{marginTop:'250px' }}>Image</InputLabel>
                     
@@ -238,7 +163,7 @@ import { withStyles } from "@material-ui/core/styles";
                         id="img"
                         label="Image"
                         name="img"
-                        value= {img}
+                    
                         className="my-1 p-1 w-full"
                         placeholder="Image"
                         InputLabelProps={{
@@ -253,7 +178,7 @@ import { withStyles } from "@material-ui/core/styles";
  
                 <Button onClick = {(event) => {this.onSubmit(event)}} className="w-full bg-blue-400 text-white py-3" variant="contained" size="medium" color="primary">
                     <Typography component="body1" variant="body1">
-                    Add Birthday
+                    Edit Birthday
                     </Typography>
                 </Button>
 
@@ -264,7 +189,8 @@ import { withStyles } from "@material-ui/core/styles";
             
          
         </div>
+    
     );
 }
 }
-export default withStyles(styles,{withTheme:true})(AddBDay);
+export default withStyles(styles,{withTheme:true})(EditBDay);
