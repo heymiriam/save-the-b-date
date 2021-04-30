@@ -78,7 +78,10 @@ const useStyles = makeStyles((theme) => ({
         setConfirmPassword(value);
       }
     };
-
+    const handleSubmit=(event)=>{
+      event.preventDefault();
+      console.log(this.state);
+    }
   return (
     <div>
     <Container component="main" maxWidth="xs">
@@ -191,6 +194,7 @@ const useStyles = makeStyles((theme) => ({
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick = {(event) => handleSubmit(event)}
           >
             Sign Up
           </Button>
