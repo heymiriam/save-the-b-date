@@ -8,6 +8,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import logo from "../assets/logo-01.svg";
 //import IconButton from '@material-ui/core/IconButton';
 import {auth} from "../firebase/firebase.util";
 //import MenuIcon from '@material-ui/icons/Menu';
@@ -57,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
           <Toolbar className={classes.menubg}>
           <Grid container direction="row" justify="space-between" alignItems="center">
             <Link className="logo" to="/" style={{ textDecoration: 'none' }} underline="none">
-                <h1>Logo</h1>
+                <img src={logo} style={{width:'200px'}}></img>
             </Link>
           {
             currentUser ? (

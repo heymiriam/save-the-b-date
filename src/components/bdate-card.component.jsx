@@ -18,68 +18,104 @@ import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import EditIcon from '@material-ui/icons/Edit';
+import { withStyles } from "@material-ui/core/styles";
 
 
-function BDateCard(){
-    const useStyles = makeStyles({
-        bdatecard:{
-            width:"100%",
-            display: 'flex',
-            flexDirection: 'column',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'hidden',
-        },
-        container:{
-            width:"70%",
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'flex-start',
-            overflow: 'hidden',
-        },
-        buttons: {
-            display:"flex",
-            flexDirection: 'row',
-            justifyContent: 'space-between',
 
-          },
-          
-        media: {
-          height: 140,
-        },
+const styles = theme =>({
+    bdatecard:{
+        width:"100%",
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+    },
+    container:{
+        width:"70%",
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'flex-start',
+        overflow: 'hidden',
+    },
+    buttons: {
+        display:"flex",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+
+      },
+      
+    media: {
+      height: 140,
+    },
+    
+    cardgrid:{
+       
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+
         
-        cardgrid:{
-           
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
 
-            
+    },
+    card:{
+        width:'90%',
+        display: 'flex',
+        flexDirection: 'column',
+        marginTop:'30px',
+        justifyContent: 'center',
+        alignItems: 'center',
 
-        },
-        card:{
-            width:'90%',
-            display: 'flex',
-            flexDirection: 'column',
-            marginTop:'30px',
-            justifyContent: 'center',
-            alignItems: 'center',
+        
+    },
+    tag:{
+        display:'flex',
+        flexDirection:'column',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        width:'98%',
+        paddingTop:'10px',
+    },
+  });
 
-            
-        },
-        tag:{
-            display:'flex',
-            flexDirection:'column',
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            width:'98%',
-            paddingTop:'10px',
-        },
-      });
-    const classes = useStyles();
- 
-    const[bdateCard, setBdatCard] = useState(BDATE_DATA)
+class BDateCard extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            bdate:{},
+            key:''
+        };
+    }
+    
+    componentDidMount() {
+        if(this.props.match && this.props.match.params.id){
+        const ref = firebase.firestore().collection('bdate').doc(this.props.match.params.id);
+        ref.get().then((doc) => {
+          if (doc.exists) {
+            this.setState({
+              bdate: doc.data(),
+              key: doc.id,
+              isLoading: false
+            });
+          } else {
+            console.log("No such document!");
+          }
+        });
+    }
+      }
+    
+      delete(id){
+        firebase.firestore().collection('bdate').doc(id).delete().then(() => {
+          console.log("Document successfully deleted!");
+          this.props.history.push("/")
+        }).catch((error) => {
+          console.error("Error removing document: ", error);
+        });
+      }
+
+
+   /* const[bdateCard, setBdatCard] = useState(BDATE_DATA)
     const removeCard = (id) => {
         let newBdateCard = bdateCard.filter((people)=> people.id !== id) 
         setBdatCard(newBdateCard)
@@ -87,27 +123,25 @@ function BDateCard(){
     const editCard=(id)=>{
        const db=firebase.firestore(); 
     
-    }
+    }*/
+    render(){
+    const {classes} = this.props;
    return(
    <div className={classes.bdatecard}> 
-          <b><Typography component="h1" variant="h3" align="center" color="primary">You have {bdateCard.length} birthdays coming soon</Typography></b>
 
        <Grid container className={classes.container}>
 
-   { bdateCard.map((people)=>{
-            const{id, name, birthday, tag, img}= people
-            return(
-            <>
+   
 <Grid item md={4} className={classes.cardgrid}>
 <Card className={classes.card}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={img}
-          title={name}
+          image={this.state.bdate.img}
+          title={this.state.bdate.name}
          > 
          <div className={classes.tag}>
-           <Chip color="primary" label={tag} >{tag}</Chip>
+           <Chip color="primary" label={this.state.bdate.tag} >{this.state.bdate.tag}</Chip>
            </div>
         </CardMedia>
         <CardContent>
@@ -116,19 +150,19 @@ function BDateCard(){
                           
          </div>
           <b><Typography gutterBottom variant="h5" align="center" component="h3">
-            {name}
+            {this.state.bdate.name}
           </Typography></b>
           <Typography variant="body1" color="textPrimary" align="center" component="p">
-            {birthday}
+            {this.state.bdate.birthday}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.buttons}>
         
-        <Button variant="contained" color="primary" style={{width:"50%"}} onClick={(event) => editCard(id)}>
+        <Button variant="contained" color="primary" style={{width:"50%"}} to={`/edit/${this.state.key}`}>
             <Link to="/add-bday" ><EditIcon style={{color:"white"}}></EditIcon></Link>
         </Button>
-        <Button variant="contained" color="secondary" style={{width:"50%"}} onClick={() => removeCard(id)}>
+        <Button variant="contained" color="secondary" style={{width:"50%"}} onClick={this.delete.bind(this, this.state.key)} >
             <Link ><DeleteIcon style={{color:"white"}}></DeleteIcon></Link>
         </Button>
       </CardActions>
@@ -138,13 +172,11 @@ function BDateCard(){
     
                 <br></br>
                 
-     </>
      
-    )
-    })}
+  
     </Grid>
     </div>
-   )
-    }
- 
-export default BDateCard;
+   );
+}
+}
+export default withStyles(styles,{withTheme:true})(BDateCard);
