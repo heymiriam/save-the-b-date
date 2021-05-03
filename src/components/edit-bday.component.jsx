@@ -11,16 +11,15 @@ import Select from '@material-ui/core/Select';
 import { FormControl } from '@material-ui/core';
 import 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import MenuItem from '@material-ui/core/MenuItem';
 import firebase from '../firebase/firebase.util';
 import { withStyles } from "@material-ui/core/styles";
 
 
    const styles = theme =>({
         container: {
-          display: 'flex',
-          flexWrap: 'wrap',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent:'center'
         },
         textField: {
           marginLeft: theme.spacing(1),
@@ -103,7 +102,7 @@ import { withStyles } from "@material-ui/core/styles";
             <h1 style={{textAlign:'center', }}>Edit a Birthday</h1>
             <Grid container style={{ width: '90%'}}>
         <Grid item xs={12} sm={12} md={5} />
-            <FormControl className='formWidth'>
+            <FormControl className='formWidth' style={{width:'30%'}}>
                 
             <TextField
                     style={{width:'100%'}}
@@ -176,7 +175,7 @@ import { withStyles } from "@material-ui/core/styles";
             <br />
             <br />
  
-                <Button onClick = {(event) => {this.onSubmit(event)}} className="w-full bg-blue-400 text-white py-3" variant="contained" size="medium" color="primary">
+                <Button style={{backgroundColor:"#0099f2"}} onClick = {(event) => {this.onSubmit(event)}} className="w-full bg-blue-400 text-white py-3" variant="contained" size="medium" color="primary">
                     <Typography component="body1" variant="body1">
                     Edit Birthday
                     </Typography>

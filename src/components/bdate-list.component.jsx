@@ -112,13 +112,13 @@ function BDateList(){
          {name}
        </Typography></b>
        <Typography variant="body1" color="textPrimary" align="center" component="p">
-         {birthday}
+       🎂 {birthday}
        </Typography>
      </CardContent>
    </CardActionArea>
    <CardActions className={classes.buttons}>
      
-     <Button variant="contained" color="primary" style={{width:"50%"}} onClick={() => editCard(id)}>
+     <Button variant="contained" color="primary" style={{width:"50%", backgroundColor:'#0099f2'}} onClick={() => editCard(id)}>
          <Link ><EditIcon style={{color:"white"}}></EditIcon></Link>
      </Button>
      <Button variant="contained" color="secondary" style={{width:"50%"}} onClick={() => removeCard(id)}>

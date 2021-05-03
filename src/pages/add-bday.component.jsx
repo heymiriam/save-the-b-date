@@ -11,93 +11,25 @@ import { FormControl } from '@material-ui/core';
 import 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import MenuItem from '@material-ui/core/MenuItem';
 import firebase from '../firebase/firebase.util';
 import { withStyles } from "@material-ui/core/styles";
-
-//import NavBar from './Nav-Footer/NavBar'
-//import Bottom from './Nav-Footer/Bottom'
-//import useStyles from '../styles/styles'
-//import { storage } from "../firebase/firabase.util"
-//import { EventContext } from "../providers/EventProvider";
+import {createBdate} from './../redux/actions/bdateActions';
+import {connect} from 'react-redux'
 
 
-/*const AddBDay = (props)=>{
-
-    const values={
-        Name:'',
-
-    }
-    const [name, setName] = useState("")
-    const [birthday, setBirthday] = useState("")
-    const [date, setDate] = useState(new Date('2014-08-18T21:11:54'));
-
-    const [tag, setTag] = useState("")
-    const [img, setImg] = useState(null);
-    const [validName, setValidName]= useState("");
-    const [validDate, setValidDate]= useState("");
-    const [validTag, setValidTag]= useState("");
-
-    const handleDateChange = (date) => {
-        setDate(date);
-      };
-    //const eventContext = useContext(EventContext)
-
-    //const classes = useStyles();
-
-    const handleChange = (e) => {
-        if (e.target.files[0]) {
-            setImg(e.target.files[0])
-        }
-    };
-
-    console.log("image: ", img)
-
-    const submitHandler = async (e) => {
-        e.preventDefault()*/
-
-        /*const uploadTask = storage.ref(`images/${img.name}`).put(img);
-        await uploadTask.on(
-        "state_changed",
-        snapshot => {
-            const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-            console.log(progress)
-        },
-        error => {
-            console.log(error);
-        },
-        () => {
-            storage
-            .ref("images")
-            .child(img.name)
-            .getDownloadURL()
-            .then(url => {
-                if(url) {
-
-                    eventContext.addEventHandler({
-                        title: title,
-                        birthday: birthday,
-                        date: date,
-                        tag: tag,
-                        img: url
-                    })
-                    
-                }
-            });
-        }
-        );*/
    // }
    const styles = theme =>({
         container: {
           display: 'flex',
           flexWrap: 'wrap',
+          justifyContent:'center'
         },
         textField: {
+            display: 'flex',
+            flexWrap: 'wrap',
+         justifyContent:'center' ,
           marginLeft: theme.spacing(1),
           marginRight: theme.spacing(1),
-          width: 200,
         },
     });
 
@@ -135,6 +67,11 @@ import { withStyles } from "@material-ui/core/styles";
         tag: '',
         img:'',
       });
+      this.props.createBdate(
+          this.name, 
+          this.birthday,
+          this.tag,
+          this.img)
       this.props.history.push("/")
     })
     .catch((error) => {
@@ -155,7 +92,7 @@ import { withStyles } from "@material-ui/core/styles";
             <h1 style={{textAlign:'center', }}>Add a Birthday</h1>
             <Grid container style={{ width: '90%'}}>
         <Grid item xs={12} sm={12} md={5} />
-            <FormControl className='formWidth'>
+            <FormControl className='formWidth' style={{width:'30%'}}>
                 
             <TextField
                     style={{width:'100%'}}
@@ -251,7 +188,7 @@ import { withStyles } from "@material-ui/core/styles";
             <br />
             <br />
  
-                <Button onClick = {(event) => {this.onSubmit(event)}} className="w-full bg-blue-400 text-white py-3" variant="contained" size="medium" color="primary">
+                <Button onClick = {(event) => {this.onSubmit(event)}} className="w-full bg-blue-400 text-white py-3" variant="contained" size="medium" style={{backgroundColor:"#0099f2"}}>
                     <Typography component="body1" variant="body1">
                     Add Birthday
                     </Typography>
@@ -267,4 +204,11 @@ import { withStyles } from "@material-ui/core/styles";
     );
 }
 }
-export default withStyles(styles,{withTheme:true})(AddBDay);
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        createBdate:(bdate)=>{
+            dispatch(createBdate(bdate))
+        }
+    }
+}
+export default connect(null,mapDispatchToProps)(withStyles(styles,{withTheme:true})(AddBDay));

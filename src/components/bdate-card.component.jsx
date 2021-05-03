@@ -159,8 +159,8 @@ class BDateCard extends React.Component{
       </CardActionArea>
       <CardActions className={classes.buttons}>
         
-        <Button variant="contained" color="primary" style={{width:"50%"}} to={`/edit/${this.state.key}`}>
-            <Link to="/add-bday" ><EditIcon style={{color:"white"}}></EditIcon></Link>
+        <Button variant="contained"  style={{width:"50%", backgroundColor:"#0099f2"}}  to="/edit-bday">
+            <Link to="/edit-bday" ><EditIcon style={{color:"white"}}></EditIcon></Link>
         </Button>
         <Button variant="contained" color="secondary" style={{width:"50%"}} onClick={this.delete.bind(this, this.state.key)} >
             <Link ><DeleteIcon style={{color:"white"}}></DeleteIcon></Link>

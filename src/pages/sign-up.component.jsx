@@ -2,7 +2,7 @@ import React, { useState, Component } from "react";
 import ReactDOM from 'react-dom';
 import {Link} from 'react-router-dom';
 import firebase from '../firebase/firebase.util';
-
+import logo from "../assets/logo-01.svg";
 import { auth, signInWithGoogle, createUserProfileDocument ,} from "../firebase/firebase.util";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -14,10 +14,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from "@material-ui/core/styles";
 import Box from '@material-ui/core/Box';
-//import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -87,9 +87,8 @@ const useStyles = makeStyles((theme) => ({
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-         
-        </Avatar>
+      <img src={logo} style={{width:'400px'}}></img>
+        <br/>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
@@ -112,7 +111,6 @@ const useStyles = makeStyles((theme) => ({
               name="displayName"
               value = {displayName}
               //autoComplete="email"
-              className="my-1 p-1 w-full"
               placeholder="First Name"
               autoFocus
               onChange={event => onChangeHandler(event)}
@@ -130,7 +128,6 @@ const useStyles = makeStyles((theme) => ({
               name="displayLastName"
               
               //autoComplete="email"
-              className="my-1 p-1 w-full"
               placeholder="Last Name"
               autoFocus
               onChange={event => onChangeHandler(event)}
@@ -148,7 +145,6 @@ const useStyles = makeStyles((theme) => ({
               name="userEmail"
               value = {email}
               autoComplete="email"
-              className="my-1 p-1 w-full"
               placeholder="mail@mail.com"
               autoFocus
               onChange = {(event) => onChangeHandler(event)}
@@ -166,7 +162,7 @@ const useStyles = makeStyles((theme) => ({
               name="userPassword"
               value = {password}
               autoComplete="email"
-              className="mt-1 mb-3 p-1 w-full"
+          
               placeholder="Your Password"
               autoFocus
               onChange = {(event) => onChangeHandler(event)}
@@ -186,10 +182,12 @@ const useStyles = makeStyles((theme) => ({
               placeholder="Confirm Password"
               onChange = {(event) => onChangeHandler(event)}
               />
+              
             </Grid>
           </Grid>
           <Button
             type="submit"
+            style={{backgroundColor:"#0099f2"}}
             fullWidth
             variant="contained"
             color="primary"
@@ -199,9 +197,9 @@ const useStyles = makeStyles((theme) => ({
             Sign Up
           </Button>
           <Grid container justify="flex-end">
-            <Grid item>
-              <Link to="/signin" variant="body2">
-                Already have an account? Sign in
+            <Grid item align='center'>
+              <Link to="/signin" variant="body2" align='center'>
+                Have you got an account? Sign in
               </Link>
             </Grid>
           </Grid>

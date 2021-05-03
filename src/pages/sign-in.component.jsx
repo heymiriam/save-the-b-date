@@ -1,6 +1,5 @@
 import React, {Component, useState, useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
-//import Button from '@material-ui/core/Button';
 import { withStyles } from "@material-ui/core/styles";
 import { useHistory } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,7 +9,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-//import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import firebase from '../firebase/firebase.util';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
@@ -19,43 +17,12 @@ import { ThemeProvider } from '@material-ui/styles';
 import { FormControl, Button } from '@material-ui/core';
 import {auth, signInWithGoogle} from '../firebase/firebase.util';
 import { useTheme } from '@material-ui/core/styles';
-
-/*function signIn()=> {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}*/
+import {connect} from 'react-redux';
+import logo from "../assets/logo-01.svg";
+import {signIn} from '../redux/actions/authAction';
 
 
-//export default function 
-/*class SignIn extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            email:"",
-            password:"",
-        }
-    };*/
 
-
-/*class SignIn extends Component{
-    constructor(props){
-        super(props)
-
-        this.state={
-            email:"",
-            password:"",
-        };
-    
-
-    }*/
 
     const useStyles = makeStyles((theme) => ({
       palette:{
@@ -235,9 +202,8 @@ import { useTheme } from '@material-ui/core/styles';
         <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-            
-            </Avatar>
+        <img src={logo} style={{width:'400px'}}></img>
+        <br/>
             <Typography component="h1" variant="h5">
             Sign in
             </Typography>
@@ -280,6 +246,7 @@ import { useTheme } from '@material-ui/core/styles';
             />
             <Button
                 type="submit"
+                style={{backgroundColor:"#0099f2"}}
                 fullWidth
                 variant="contained"
                 color="primary"
@@ -290,6 +257,7 @@ import { useTheme } from '@material-ui/core/styles';
                 </Button>
             
              <Button variant="contained" size="medium"  style={{width:'100%'}} color="secondary" className="bg-red-500 hover:bg-red-600 w-full py-2 text-white"
+            style={{backgroundColor:"#dee1e3"}}
             onClick={() => {
               try {
                 signInWithGoogle();
@@ -302,15 +270,15 @@ import { useTheme } from '@material-ui/core/styles';
               Sign in with Google
              
             </Button>
-          
+            <br/>
             <Grid container>
                 <Grid item xs>
                 <Link to="passwordReset" variant="body2">
-                    Forgot password?
+                    Reset Password
                 </Link>
                 </Grid>
                 <Grid item>
-                Have you got an account?{" "}
+                If you have an account, {" "}
                 <Link to="/signup" className="text-blue-500 hover:text-blue-600" >
                   Sign Up 
                 </Link>{" "}
@@ -325,8 +293,7 @@ import { useTheme } from '@material-ui/core/styles';
   };
     
 
-
-export default SignIn;
+export default connect()(SignIn);
 //export default withStyles(styles,{withTheme:true})(SignIn);
 /*paper: {
     marginTop: theme.spacing(8),
