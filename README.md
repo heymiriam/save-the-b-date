@@ -1,2 +1,2 @@
 # Deploy link
-https://save-eet.web.app/
+https://save-the-b-date.web.app/
